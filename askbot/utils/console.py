@@ -32,7 +32,7 @@ def choice_dialog(prompt_phrase, choices = None, invalid_phrase = None):
     assert(hasattr(choices, '__iter__'))
     assert(not isinstance(choices, basestring))
     while 1:
-        response = raw_input(
+        response = input(
             '\n%s\ntype %s: ' % (prompt_phrase, '/'.join(choices))
         )
         if response in choices:
@@ -59,7 +59,7 @@ def numeric_choice_dialog(prompt_phrase, choices):
     assert(not isinstance(choices, basestring))
     choice_menu = "\n".join(["%d - %s" % (i,x) for i, x in enumerate(choices)])
     while True:
-        response = raw_input('\n%s\n%s> ' % (choice_menu, prompt_phrase))
+        response = input('\n%s\n%s> ' % (choice_menu, prompt_phrase))
         try:
             index = int(response)
         except ValueError:
@@ -95,7 +95,7 @@ def numeric_multiple_choice_dialog(prompt_phrase, choices, all_option=False):
     choice_indexes = []
     index = False
     while True:
-        response = raw_input('\n%s\n%s> ' % (choice_menu, prompt_phrase))
+        response = input('\n%s\n%s> ' % (choice_menu, prompt_phrase))
         selections = response.split()
         print("selections: %s" % selections)
         for c in selections:
@@ -126,7 +126,7 @@ def simple_dialog(prompt_phrase, required=False):
         if required:
             prompt_phrase += ' (required)'
 
-        response = raw_input(prompt_phrase + '\n> ').strip()
+        response = input(prompt_phrase + '\n> ').strip()
 
         if response or required is False:
             return response
@@ -152,7 +152,7 @@ def get_yes_or_no(prompt_phrase, default=None):
             prompt_phrase += '\n[%s] >' % default
         else:
             prompt_phrase += '\n >'
-        response = raw_input(prompt_phrase).strip()
+        response = input(prompt_phrase).strip()
         if not response and default:
             return default
         if response in ('yes', 'no'):
@@ -178,7 +178,7 @@ def open_new_file(prompt_phrase, extension = '', hint = None):
         file_object = path.create_file_if_does_not_exist(file_path, print_warning = True)
 
     while file_object == None:
-        file_path = raw_input(prompt_phrase)
+        file_path = input(prompt_phrase)
         file_path = path.extend_file_name(file_path, extension)
         file_object = path.create_file_if_does_not_exist(file_path, print_warning = True)
 

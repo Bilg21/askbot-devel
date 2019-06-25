@@ -43,5 +43,5 @@ def patch_coffin():
     from askbot.patches import coffin_patches
 
     (major, minor, micro) = package_utils.get_coffin_version()
-    if major == 0 and minor == 3 and micro < 4:
+    if major == 0 and minor == 3 and int(micro) < 4:
         coffin_patches.add_csrf_token_tag()

@@ -114,27 +114,26 @@ def csrf(request):
     _get_val = lazy(_get_val, str)
     return {'csrf_token': _get_val() }
 
-"""
-Cross Site Request Forgery Middleware.
-This module provides a middleware that implements protection
-against request forgeries from other sites.
-"""
-import itertools
-import re
-import random
-from django.conf import settings
-from django.core.urlresolvers import get_callable
-from django.utils.safestring import mark_safe
-_POST_FORM_RE = \
-    re.compile(r'(<form\W[^>]*\bmethod\s*=\s*(\'|"|)POST(\'|"|)\b[^>]*>)', re.IGNORECASE)
-_HTML_TYPES = ('text/html', 'application/xhtml+xml')
-# Use the system (hardware-based) random number generator if it exists.
-if hasattr(random, 'SystemRandom'):
-    randrange = random.SystemRandom().randrange
-else:
-    randrange = random.randrange
-_MAX_CSRF_KEY = 18446744073709551616L     # 2 << 63
-def _get_failure_view():
+    """
+    Cross Site Request Forgery Middleware.
+    This module provides a middleware that implements protection
+    against request forgeries from other sites.
+    """
+    import itertools
+    import re
+    import random
+    from django.conf import settings
+    from django.core.urlresolvers import get_callable
+    from django.utils.safestring import mark_safe
+    _POST_FORM_RE = \
+        re.compile(r'(<form\W[^>]*\bmethod\s*=\s*(\'|"|)POST(\'|"|)\b[^>]*>)', re.IGNORECASE)
+    _HTML_TYPES = ('text/html', 'application/xhtml+xml')
+    # Use the system (hardware-based) random number generator if it exists.
+    if hasattr(random, 'SystemRandom'):
+        randrange = random.SystemRandom().randrange
+    else:
+        randrange = random.randrange
+    _MAX_CSRF_KEY = 18446744073709551616     # 2 << 63 def _get_failure_view():
     """
     Returns the view to be used for CSRF rejections
     """
